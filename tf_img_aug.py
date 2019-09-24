@@ -29,7 +29,8 @@ def img_aug_session(img_path, fn, param):
     return image
 
 
-def img_aug(input_path, output_path, fn, params, before_str="", after_str=""):
+def img_aug(input_path, output_name, fn, params, before_str="", after_str=""):
+    output_dir = Path("output")
     imgs = []
     for param in params:
         with tf.compat.v1.Session() as sess:
@@ -37,16 +38,17 @@ def img_aug(input_path, output_path, fn, params, before_str="", after_str=""):
 
         imgs.append(img)
 
-    images_to_gif_with_param(imgs, output_path, "gamma", params, before_str, after_str)
+    images_to_gif_with_param(imgs, str(output_dir / output_name), "gamma", params, before_str, after_str)
 
 
 def main():
     input_dir = Path("input")
-    output_dir = Path("output")
     input_path = str(input_dir / "degu.jpg")
+
+    # adjust_gamma
     params = [round(i * 0.4, 1) for i in range(10)]
-    img_aug(input_path, str(output_dir / "gamma_gamma.gif"), adjust_gamma_fixed_gain, params, after_str="gain: 1")
-    img_aug(input_path, str(output_dir / "gamma_gain.gif"), adjust_gamma_fixed_gamma, params, before_str="gamma: 1")
+    img_aug(input_path, "gamma_gamma.gif", adjust_gamma_fixed_gain, params, after_str="gain: 1")
+    img_aug(input_path, "gamma_gain.gif", adjust_gamma_fixed_gamma, params, before_str="gamma: 1")
 
 
 if __name__ == "__main__":
