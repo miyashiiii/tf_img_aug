@@ -29,7 +29,7 @@ def img_aug_session(img_path, fn, param):
     return image
 
 
-def img_aug(input_path, output_name, fn, params, before_str="", after_str=""):
+def img_aug(input_path, output_name, fn, params, param_name, before_str="", after_str=""):
     output_dir = Path("output")
     imgs = []
     for param in params:
@@ -38,7 +38,7 @@ def img_aug(input_path, output_name, fn, params, before_str="", after_str=""):
 
         imgs.append(img)
 
-    images_to_gif_with_param(imgs, str(output_dir / output_name), "gamma", params, before_str, after_str)
+    images_to_gif_with_param(imgs, str(output_dir / output_name), param_name, params, before_str, after_str)
 
 
 def main():
@@ -47,8 +47,8 @@ def main():
 
     # adjust_gamma
     params = [round(i * 0.4, 1) for i in range(10)]
-    img_aug(input_path, "gamma_gamma.gif", adjust_gamma_fixed_gain, params, after_str="gain: 1")
-    img_aug(input_path, "gamma_gain.gif", adjust_gamma_fixed_gamma, params, before_str="gamma: 1")
+    img_aug(input_path, "gamma_gamma.gif", adjust_gamma_fixed_gain, params, "gamma", after_str="gain: 1")
+    img_aug(input_path, "gamma_gain.gif", adjust_gamma_fixed_gamma, params, "gain", before_str="gamma: 1")
 
 
 if __name__ == "__main__":
