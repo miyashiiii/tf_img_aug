@@ -2,15 +2,16 @@ from pathlib import Path
 
 import tensorflow as tf
 
-from tf_img_aug import img_aug
+from src.tf_img_aug import img_aug
 
 
 def adjust_gamma_fixed_gamma(image, gain):
-    return tf.image.adjust_gamma(
+    image =tf.image.adjust_gamma(
         image,
         gamma=1,
         gain=gain
     )
+    return image
 
 
 def adjust_gamma_fixed_gain(image, gamma):
@@ -22,7 +23,7 @@ def adjust_gamma_fixed_gain(image, gamma):
 
 
 def main():
-    input_dir = Path("input")
+    input_dir:Path = Path()/"input"
     input_path = str(input_dir / "degu.jpg")
 
     # adjust_gamma

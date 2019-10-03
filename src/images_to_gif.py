@@ -15,6 +15,7 @@ def images_to_gif_with_param(imgs, output_path, param_name, params, before_str="
     if after_str:
         after_str = " " + after_str
     for img, param in zip(imgs, params):
+        print(img[0,0,0])
         h, w = img.shape[:2]
         new_h = h + 15
         new_img = np.full((new_h, w, 3), 255, dtype=np.uint8)
